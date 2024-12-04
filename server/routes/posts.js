@@ -28,6 +28,43 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ error: 'Post not found' });
     }
   });
+  router.get('/user/:userId', async (req, res) => {
+    console.log('Request body:', req.body);
+    console.log('Request params:', req.params);
+  
+    try {
+      const posts = await Post.find({ author: req.params.userId });
+      res.json(posts);
+    } catch (err) {
+      res.status(500).json({ error: 'Error fetching user posts' });
+    }
+  });
+  router.put('/:id', async (req, res) => {
+    console.log('Request body:', req.body);
+    console.log('Request params:', req.params);
+  
+    try {
+      const { id } = req.params;
+      const { title, content } = req.body;
+  
+      const updatedPost = await Post.findByIdAndUpdate(
+        id,
+        { title, content },
+        { new: true }
+      );
+  
+      if (!updatedPost) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+  
+      res.json(updatedPost);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Error updating post' });
+    }
+  });
+  
+    
   
 
 module.exports = router;

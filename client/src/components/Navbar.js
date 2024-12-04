@@ -42,6 +42,11 @@ function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
+  <Link className="nav-link" to="/my-posts">
+    My Posts
+  </Link>
+</li>
+                <li className="nav-item">
                   <button
                     className="btn btn-danger btn-sm nav-link text-light"
                     onClick={handleLogout}
