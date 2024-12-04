@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate=useNavigate();
+ useEffect(()=>{
+  if(localStorage.getItem("token")){
+    navigate('/')
+  }
+},[])
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/auth/login', { username, password });
+      const res = await axios.post('http://localhost:5000/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       alert('Login successful!');
     } catch (err) {
@@ -22,8 +30,8 @@ function Login() {
         <input
           type="text"
           className="form-control mb-3"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="email"
+          onChange={(e) => setemail(e.target.value)}
         />
         <input
           type="password"

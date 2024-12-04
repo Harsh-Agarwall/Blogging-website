@@ -3,11 +3,12 @@ import axios from 'axios';
 
 function Signup() {
   const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignup = async () => {
     try {
-      await axios.post('http://localhost:5000/auth/signup', { username, password });
+      await axios.post('http://localhost:5000/auth/signup', { username,email, password });
       alert('Signup successful!');
     } catch (err) {
       alert('Error signing up');
@@ -23,6 +24,12 @@ function Signup() {
           className="form-control mb-3"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
+        />
+         <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="email"
+          onChange={(e) => setemail(e.target.value)}
         />
         <input
           type="password"
