@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
+  const navigate = useNavigate();
+  
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate('/login')
+    }
+  },[])
   const createPost = async () => {
     try {
       const token = localStorage.getItem('token');

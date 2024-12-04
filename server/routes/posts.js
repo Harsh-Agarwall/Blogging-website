@@ -20,5 +20,14 @@ router.get('/', async (req, res) => {
   const posts = await Post.find().populate('author', 'username');
   res.json(posts);
 });
+router.get('/:id', async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id).populate('author', 'username');
+      res.json(post);
+    } catch (err) {
+      res.status(404).json({ error: 'Post not found' });
+    }
+  });
+  
 
 module.exports = router;
