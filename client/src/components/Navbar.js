@@ -1,9 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useState,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const [searchTag, setSearchTag] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTag.trim()) {
+      navigate(`/search?tag=${searchTag}`);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -70,6 +81,18 @@ function Navbar() {
               </>
             )}
           </ul>
+          <form className="d-flex ms-3" onSubmit={handleSearch}>
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search by Tag"
+              value={searchTag}
+              onChange={(e) => setSearchTag(e.target.value)}
+            />
+            <button className="btn btn-outline-light" type="submit">
+              Search
+            </button>
+          </form>
         </div>
       </div>
     </nav>

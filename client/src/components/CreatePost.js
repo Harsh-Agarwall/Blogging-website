@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [tags, setTags] = useState('');
   const navigate = useNavigate();
+  
+
   
   useEffect(()=>{
     if(!localStorage.getItem("token")){
@@ -14,11 +17,17 @@ function CreatePost() {
     }
   },[])
   const createPost = async () => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
     try {
-      const token = localStorage.getItem('token');
       await axios.post(
         'http://localhost:5000/posts',
-        { title, content },
+        {
+          title,
+          content,
+          tags: tags.split(',').map((tag) => tag.trim()), // Split tags by commas
+          author: userId,
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert('Post created successfully!');
@@ -43,6 +52,12 @@ function CreatePost() {
           placeholder="Write your content here..."
           onChange={(e) => setContent(e.target.value)}
         ></textarea>
+           <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Tags (comma-separated)"
+          onChange={(e) => setTags(e.target.value)}
+        />
         <button className="btn btn-primary w-100" onClick={createPost}>
           Submit Post
         </button>

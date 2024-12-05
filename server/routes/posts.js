@@ -5,10 +5,18 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { title, content ,tags} = req.body;
     const token = req.headers.authorization.split(' ')[1];
     const { userId } = jwt.verify(token, 'b4d89a59d3f8ef12b2a60a6bc9f4e9b63fcbf8e2a84919f4653d2eac8edfe289');
-    const post = new Post({ title, content, author: userId });
+    const formattedTags = Array.isArray(tags)
+    ? tags
+    : tags?.split(',').map((tag) => tag.trim()).filter((tag) => tag) || [];
+    const post = new Post({
+      title,
+      content,
+      tags: formattedTags,
+      author: userId,
+    });
     await post.save();
     res.status(201).json(post);
   } catch (err) {
@@ -63,6 +71,27 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ error: 'Error updating post' });
     }
   });
+  
+  router.get('/search/:tag', async (req, res) => {
+    const { tag } = req.params; // Extract `tag` from query parameters
+  
+    if (!tag) {
+      return res.status(400).json({ error: 'Tag query parameter is required' });
+    }
+  
+    try {
+      // Search for posts where `tags` array contains the specified tag
+      const posts = await Post.find({ tags: { $in: [tag]} });
+      if (posts.length === 0) {
+        return res.status(404).json({ message: 'No posts found with the given tag' });
+      }
+      res.status(200).json(posts); // Send found posts as response
+    } catch (err) {
+      console.error('Error fetching posts by tag:', err);
+      res.status(500).json({ error: 'Server error while fetching posts' });
+    }
+  });
+  
   
     
   

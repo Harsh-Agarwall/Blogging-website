@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import BlogDetail from './components/BlogDetail';
 import MyPosts from './components/MyPosts';
 import EditPost from './components/EditPost';
+import SearchResults from './components/SearchResults';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <ProtectedRoute><MyPosts /></ProtectedRoute>} />
         <Route path="/edit-post/:id" element={
           <ProtectedRoute><EditPost /></ProtectedRoute>} />
+          <Route path="/search" element={<SearchResults />} />
       </Routes>
     </Router>
     </AuthProvider>
