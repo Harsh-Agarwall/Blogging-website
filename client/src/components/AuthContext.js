@@ -1,3 +1,4 @@
+// this is to make navbar reload everytime page is changed
 import React, { createContext, useState } from 'react';
 
 export const AuthContext = createContext();

@@ -17,7 +17,7 @@ function PostList() {
     <div className="container mt-5">
       <h2 className="text-center mb-4">All Blogs</h2>
       <div className="row">
-        {posts.map((post) => (
+        {posts.map((post) => (//loops to provide posts
           <div className="col-md-4 mb-4" key={post._id}>
             <div className="card shadow-sm h-100">
               <div className="card-body">

@@ -14,6 +14,7 @@ import SearchResults from './components/SearchResults';
 
 function App() {
   return (
+    //protected route is being used to restrict the user
     <AuthProvider>
     <Router>
       <Navbar/>

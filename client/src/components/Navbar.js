@@ -8,7 +8,7 @@ function Navbar() {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const [searchTag, setSearchTag] = useState('');
   const navigate = useNavigate();
-
+//handlesearch which navigate to the search reasult page
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchTag.trim()) {
@@ -19,6 +19,7 @@ function Navbar() {
   const handleLogout = () => {
     logout();
     alert('Logged out successfully!');
+    navigate('/login');
   };
 
   return (

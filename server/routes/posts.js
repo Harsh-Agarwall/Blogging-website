@@ -2,12 +2,12 @@ const express = require('express');
 const Post = require('../models/Post');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
-
+//to save the post
 router.post('/', async (req, res) => {
   try {
     const { title, content ,tags} = req.body;
     const token = req.headers.authorization.split(' ')[1];
-    const { userId } = jwt.verify(token, 'b4d89a59d3f8ef12b2a60a6bc9f4e9b63fcbf8e2a84919f4653d2eac8edfe289');
+    const { userId } = jwt.verify(token, process.env.JWT_SECRET);
     const formattedTags = Array.isArray(tags)
     ? tags
     : tags?.split(',').map((tag) => tag.trim()).filter((tag) => tag) || [];
@@ -23,11 +23,13 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Error creating post' });
   }
 });
+//to get the post
 
 router.get('/', async (req, res) => {
   const posts = await Post.find().populate('author', 'username');
   res.json(posts);
 });
+//get post by id
 router.get('/:id', async (req, res) => {
     try {
       const post = await Post.findById(req.params.id).populate('author', 'username');
@@ -36,6 +38,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ error: 'Post not found' });
     }
   });
+  //get post by user id
   router.get('/user/:userId', async (req, res) => {
     console.log('Request body:', req.body);
     console.log('Request params:', req.params);
@@ -71,7 +74,7 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ error: 'Error updating post' });
     }
   });
-  
+  //search api
   router.get('/search/:tag', async (req, res) => {
     const { tag } = req.params; // Extract `tag` from query parameters
   
