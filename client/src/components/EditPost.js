@@ -23,7 +23,7 @@ function EditPost() {
     try {
       const token = localStorage.getItem('token');
       await axios.put(
-        `http://localhost:5000/posts/${id}`,
+        `https://blogging-website-9ia2.onrender.com/posts/${id}`,
         { title: post.title, content: post.content },
         { headers: { Authorization: `Bearer ${token}` } }
       );
