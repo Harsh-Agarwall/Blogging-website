@@ -11,7 +11,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/auth/login', { email, password });
+      const res = await axios.post('https://blogging-website-9ia2.onrender.com/auth/login', { email, password });
       login(res.data.token); // Update context state
       localStorage.setItem('userId',res.data.userId)
       alert('Login successful!');

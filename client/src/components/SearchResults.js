@@ -11,7 +11,7 @@ function SearchResults() {
     const fetchPosts = async () => {
         try {
           console.log('Tag being searched:', tag); // Debug log
-          const res = await axios.get(`http://localhost:5000/posts/search/${tag}`);
+          const res = await axios.get(`https://blogging-website-9ia2.onrender.com/posts/search/${tag}`);
           setPosts(res.data);
         } catch (err) {
           console.error('Error fetching posts by tag:', err); // Debug log

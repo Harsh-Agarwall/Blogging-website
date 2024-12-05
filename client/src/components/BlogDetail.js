@@ -10,7 +10,7 @@ function BlogDetail() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/posts/${id}`);
+        const res = await axios.get(`https://blogging-website-9ia2.onrender.com/posts/${id}`);
         setPost(res.data);
       } catch (err) {
         alert('Error fetching post details');

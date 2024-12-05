@@ -8,7 +8,7 @@ function Signup() {
 
   const handleSignup = async () => {
     try {
-      await axios.post('http://localhost:5000/auth/signup', { username,email, password });
+      await axios.post('https://blogging-website-9ia2.onrender.com/auth/signup', { username,email, password });
       alert('Signup successful!');
     } catch (err) {
       alert('Error signing up');

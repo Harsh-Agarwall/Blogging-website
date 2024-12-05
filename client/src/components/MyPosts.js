@@ -9,7 +9,7 @@ function MyPosts() {
     const fetchMyPosts = async () => {
       const userId = localStorage.getItem('userId'); // Store `userId` during login/signup
       try {
-        const res = await axios.get(`http://localhost:5000/posts/user/${userId}`);
+        const res = await axios.get(`https://blogging-website-9ia2.onrender.com/posts/user/${userId}`);
         setPosts(res.data);
       } catch (err) {
         alert('Error fetching your posts');

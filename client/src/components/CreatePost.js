@@ -21,7 +21,7 @@ function CreatePost() {
     const userId = localStorage.getItem('userId');
     try {
       await axios.post(
-        'http://localhost:5000/posts',
+        'https://blogging-website-9ia2.onrender.com/posts',
         {
           title,
           content,
